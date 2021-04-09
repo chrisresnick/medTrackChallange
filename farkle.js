@@ -11,22 +11,37 @@ function initializeDice(){
 		diceArr[i].value = i + 1;
 		diceArr[i].clicked = 0;
 	}
+	document.querySelectorAll("img").forEach(img => img.classList.remove("transparent"));
+	score = 0;
 	updateDiceImg();
 }
 
 function pass(){
+	if(players.length === 0){
+		alert("Please create at least one player first.");
+		return;
+	}
 	if(!isFarkle()){
 		for(let i=0; i<6;i++){
 			if(diceArr[i].clicked === 0) diceArr[i].clicked=1;
 		}
 		bankScore();
-		alert(`Your score for this round (including the current dice) was ${score}`)
 	}
+	alert(`Your score for this round (including the current dice) was ${score}`);
+	players[turn].score += score;
+	turn += 1;
+	if(turn >= players.length) turn=0;
+	document.querySelector(".playerName").innerHTML = `Player: ${players[turn].name}`;
+	document.querySelector(".playerScore").innerHTML = `Score: ${players[turn].score}`
 	initializeDice();
 }
 
 /*Rolling dice values*/
 function rollDice(){
+	if(players.length === 0){
+		alert("Please create at least one player first.");
+		return;
+	}
 	if(!scoreBanked) bankScore();
 	for(var i=0; i < 6; i++){
 		if(diceArr[i].clicked === 0){
@@ -61,6 +76,7 @@ function updateDiceImg(){
 		diceImage = "images/" +diceArr[i].value+".png";
 		document.getElementById(diceArr[i].id).setAttribute("src", diceImage);
 	}
+	document.querySelector(".score").innerHTML = String(score);
 }
 
 function diceClick(img){
@@ -117,9 +133,14 @@ function addPlayer(){
 		alert("Please enter a valid name for the player");
 		return;
 	}
-	players.push([playerName, 0])
-	document.querySelector(".playerName").innerHTML = `Player: ${playerName}`;
-	document.querySelector(".playerScore").innerHTML = "Score: 0";
-	document.querySelector(".playerInfo").classList.remove("hidden");
+	players.push({
+		name: playerName,
+		score: 0
+	})
+	if(players.length === 1){
+		document.querySelector(".playerName").innerHTML = `Player: ${playerName}`;
+		document.querySelector(".playerScore").innerHTML = "Score: 0";
+		document.querySelector(".playerInfo").classList.remove("hidden");
+	}
 	document.querySelector(".playerInput").value = "";
 }
