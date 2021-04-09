@@ -9,6 +9,12 @@
 <body onload="initializeDice()">
 	<div class="holder">
 		<header class="row header">Welcome to Farkle!</header>
+		<div class="playerInfo hidden">
+			<div class="row">
+				<div class="playerName"></div>
+				<div class="playerScore"></div>
+			</div>
+		</div>
 		<div class="row">
 			<!-- Dice images -->
 			<div class="dice"> 
@@ -27,7 +33,19 @@
 		<div class="row">
 			<button class="button roll column" onclick="rollDice()">Roll Dice</button>
 			<button class="button bank column" onclick="bankScore()">Bank Score</button>
-			<button class="button reset column" onclick="initializeDice()">Next Turn</button>
+			<button class="button reset column" onclick="pass()">Pass</button>
+		</div>
+		<div class="players">
+			<div class="row">
+				<input class="playerInput" placeholder="player name"/>
+				<button class="button add column" onclick="addPlayer()">Add Player</button>
+			</div>
+			<!-- <div class ="row">
+				<select>
+					<option value="0">Players</option>>
+				</select>
+				<button class="button remove column">Remove Player</button>
+			</div> -->
 		</div>
 	</div>
 </body>

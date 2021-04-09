@@ -1,6 +1,8 @@
 var diceArr = [];
 let score = 0;
 let scoreBanked = false;
+const players = [];
+let turn = 0;
 
 function initializeDice(){
 	for(i = 0; i < 6; i++){
@@ -10,6 +12,17 @@ function initializeDice(){
 		diceArr[i].clicked = 0;
 	}
 	updateDiceImg();
+}
+
+function pass(){
+	if(!isFarkle()){
+		for(let i=0; i<6;i++){
+			if(diceArr[i].clicked === 0) diceArr[i].clicked=1;
+		}
+		bankScore();
+		alert(`Your score for this round (including the current dice) was ${score}`)
+	}
+	initializeDice();
 }
 
 /*Rolling dice values*/
@@ -96,4 +109,17 @@ function bankScore(){
 	}
 	document.querySelector(".score").innerHTML = score;
 	scoreBanked = true;
+}
+
+function addPlayer(){
+	const playerName = document.querySelector(".playerInput").value;
+	if(!playerName || !playerName.length || playerName.length > 20){
+		alert("Please enter a valid name for the player");
+		return;
+	}
+	players.push([playerName, 0])
+	document.querySelector(".playerName").innerHTML = `Player: ${playerName}`;
+	document.querySelector(".playerScore").innerHTML = "Score: 0";
+	document.querySelector(".playerInfo").classList.remove("hidden");
+	document.querySelector(".playerInput").value = "";
 }

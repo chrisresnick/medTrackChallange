@@ -22,6 +22,17 @@ body{
 	font-family: arial;
 	color: #fff;
 }
+
+.playerInfo{
+	font-size: 30px;
+	color: #fff;
+	margin-bottom: 5vh;
+}
+
+.playerName {
+	margin-right: 5vw;
+}
+
 .dice{
 	display: flex;
 	justify-content: space-between;
@@ -54,6 +65,13 @@ body{
   display: inline-block;
   font-size: 16px;
   margin-left: 25px;
+}
+
+.players .row {
+	margin-top: 5vh;
+}
+.hidden {
+	display: none;
 }
 .column{
 	float: left;
