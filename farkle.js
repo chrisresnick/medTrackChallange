@@ -30,13 +30,12 @@ function updateDiceImg(){
 
 function diceClick(img){
 	var i = img.getAttribute("data-number");
-
 	img.classList.toggle("transparent");
 	if(diceArr[i].clicked === 0){
-		diceArr[i].clicked == 1;
+		diceArr[i].clicked = 1;
 	}
 	else{
-		diceArr[i].clicked == 0;
+		diceArr[i].clicked = 0;
 	}
 
 }
