@@ -1,6 +1,7 @@
 var diceArr = [];
 let score = 0;
 let scoreBanked = false;
+let rolled = false;
 const players = [];
 let turn = 0;
 
@@ -13,12 +14,17 @@ function initializeDice(){
 	}
 	document.querySelectorAll("img").forEach(img => img.classList.remove("transparent"));
 	score = 0;
+	rolled = false;
 	updateDiceImg();
 }
 
 function pass(){
 	if(players.length === 0){
 		alert("Please create at least one player first.");
+		return;
+	}
+	if(!rolled){
+		alert("Please roll the die first pass");
 		return;
 	}
 	if(!isFarkle()){
@@ -29,8 +35,12 @@ function pass(){
 	}
 	alert(`Your score for this round (including the current dice) was ${score}`);
 	players[turn].score += score;
+	if(players[turn].score >= 10000){
+		alert(`${players[turn].name} won the game!!! Refresh the screen to start a new game.`);
+	}
 	turn += 1;
 	if(turn >= players.length) turn=0;
+	console.log(turn, players)
 	document.querySelector(".playerName").innerHTML = `Player: ${players[turn].name}`;
 	document.querySelector(".playerScore").innerHTML = `Score: ${players[turn].score}`
 	initializeDice();
@@ -42,17 +52,23 @@ function rollDice(){
 		alert("Please create at least one player first.");
 		return;
 	}
-	if(!scoreBanked) bankScore();
+	for(let i=0;i<6;i++){
+		if(diceArr[i].clicked === 1){
+			alert("You have dice that have been selected but not banked. Please unselect them or bank them.");
+			return;
+		}
+	}
 	for(var i=0; i < 6; i++){
 		if(diceArr[i].clicked === 0){
 			diceArr[i].value = Math.floor((Math.random() * 6) + 1);
 		}
 	}
 	scoreBanked = false;
+	rolled = true;
 	updateDiceImg();
 	if(isFarkle()){
 		alert("You got a Farkle :( You score 0, it's the next player's turn.");
-		score = 0;
+		pass();
 	}
 }
 
@@ -80,17 +96,26 @@ function updateDiceImg(){
 }
 
 function diceClick(img){
+	if(!rolled){
+		alert("Please roll the die first");
+		return;
+	}
 	var i = img.getAttribute("data-number");
-	img.classList.toggle("transparent");
 	if(diceArr[i].clicked === 0){
 		diceArr[i].clicked = 1;
+		img.classList.add("transparent");
 	}
 	else if (diceArr[i].clicked === 1){
 		diceArr[i].clicked = 0;
+		img.classList.remove("transparent");
 	}
 }
 
 function bankScore(){
+	if(!rolled){
+		alert("Please roll the die first bank");
+		return;
+	}
 	const scoreTable = {
 		1: 100,
 		2: 0,
