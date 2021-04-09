@@ -20,6 +20,10 @@ function rollDice(){
 		}
 	}
 	scoreBanked = false;
+	if(isFarkle()){
+		alert("You got a Farkle :( . You score 0, its the next player's turn.");
+		score = 0;
+	}
 	updateDiceImg();
 }
 
@@ -27,8 +31,8 @@ function isFarkle(){
 	let counts = {}
 	for(let i = 0;i<6;i++){
 		let {clicked, value} = diceArr[i];
-		if(value === 1 || value === 5) return false;
 		if(clicked !== 0) continue;
+		if(value === 1 || value === 5) return false;
 		if(!(value in counts)) diceToProcess[value] = 0;
 		diceToProcess[value] += 1;
 		if(diceToProcess[value] == 3) return false;
