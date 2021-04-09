@@ -24,7 +24,7 @@ function pass(){
 		return;
 	}
 	if(!rolled){
-		alert("Please roll the die first pass");
+		alert("Please roll the die first");
 		return;
 	}
 	if(!isFarkle()){
@@ -33,7 +33,7 @@ function pass(){
 		}
 		bankScore();
 	}
-	alert(`Your score for this round (including the current dice) was ${score}`);
+	alert(`Your score for this round (including the current dice) was ${isFarkle() ? 0: score}`);
 	players[turn].score += score;
 	if(players[turn].score >= 10000){
 		alert(`${players[turn].name} won the game!!! Refresh the screen to start a new game.`);
@@ -113,7 +113,7 @@ function diceClick(img){
 
 function bankScore(){
 	if(!rolled){
-		alert("Please roll the die first bank");
+		alert("Please roll the die first");
 		return;
 	}
 	const scoreTable = {
