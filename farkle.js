@@ -33,7 +33,7 @@ function pass(){
 		}
 		bankScore();
 	}
-	alert(`Your score for this round (including the current dice) was ${isFarkle() ? 0: score}`);
+	alert(`Your score for this round (including the current dice) was ${score}`);
 	players[turn].score += score;
 	if(players[turn].score >= 10000){
 		alert(`${players[turn].name} won the game!!! Refresh the screen to start a new game.`);
@@ -156,6 +156,10 @@ function addPlayer(){
 	const playerName = document.querySelector(".playerInput").value;
 	if(!playerName || !playerName.length || playerName.length > 20){
 		alert("Please enter a valid name for the player");
+		return;
+	}
+	if(playerName.includes(">") || playerName.includes("(")){
+		alert("No code injection!!!");
 		return;
 	}
 	players.push({
