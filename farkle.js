@@ -1,5 +1,6 @@
 var diceArr = [];
 let score = 0;
+let scoreBanked = false;
 
 function initializeDice(){
 	for(i = 0; i < 6; i++){
@@ -12,12 +13,27 @@ function initializeDice(){
 
 /*Rolling dice values*/
 function rollDice(){
+	if(!scoreBanked) bankScore();
 	for(var i=0; i < 6; i++){
 		if(diceArr[i].clicked === 0){
 			diceArr[i].value = Math.floor((Math.random() * 6) + 1);
 		}
 	}
+	scoreBanked = false;
 	updateDiceImg();
+}
+
+function isFarkle(){
+	let counts = {}
+	for(let i = 0;i<6;i++){
+		let {clicked, value} = diceArr[i];
+		if(value === 1 || value === 5) return false;
+		if(clicked !== 0) continue;
+		if(!(value in counts)) diceToProcess[value] = 0;
+		diceToProcess[value] += 1;
+		if(diceToProcess[value] == 3) return false;
+	}
+	return true;
 }
 
 /*Updating images of dice given values of rollDice*/
@@ -74,4 +90,5 @@ function bankScore(){
 		score += count*scoreTable[val]
 	}
 	document.querySelector(".score").innerHTML = score;
+	scoreBanked = true;
 }
