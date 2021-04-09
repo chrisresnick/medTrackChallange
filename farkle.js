@@ -9,6 +9,7 @@ function initializeDice(){
 		diceArr[i].value = i + 1;
 		diceArr[i].clicked = 0;
 	}
+	updateDiceImg();
 }
 
 /*Rolling dice values*/
@@ -20,11 +21,11 @@ function rollDice(){
 		}
 	}
 	scoreBanked = false;
+	updateDiceImg();
 	if(isFarkle()){
-		alert("You got a Farkle :( . You score 0, its the next player's turn.");
+		alert("You got a Farkle :( You score 0, it's the next player's turn.");
 		score = 0;
 	}
-	updateDiceImg();
 }
 
 function isFarkle(){
@@ -33,9 +34,9 @@ function isFarkle(){
 		let {clicked, value} = diceArr[i];
 		if(clicked !== 0) continue;
 		if(value === 1 || value === 5) return false;
-		if(!(value in counts)) diceToProcess[value] = 0;
-		diceToProcess[value] += 1;
-		if(diceToProcess[value] == 3) return false;
+		if(!(value in counts)) counts[value] = 0;
+		counts[value] += 1;
+		if(counts[value] === 3) return false;
 	}
 	return true;
 }

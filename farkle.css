@@ -7,6 +7,8 @@ body{
 	font-family: arial;
 }
 .row{
+	display: flex;
+	justify-content: space-between;
 	margin:auto;
 	width: 800px;
 	max-width: 100%;
