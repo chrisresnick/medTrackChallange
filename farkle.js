@@ -1,4 +1,5 @@
 var diceArr = [];
+let score = 0;
 
 function initializeDice(){
 	for(i = 0; i < 6; i++){
@@ -34,8 +35,21 @@ function diceClick(img){
 	if(diceArr[i].clicked === 0){
 		diceArr[i].clicked = 1;
 	}
-	else{
+	else if (diceArr[i].clicked === 1){
 		diceArr[i].clicked = 0;
 	}
+}
 
+function bankScore(){
+	const diceToProcess = {};
+	for(let i=0;i<6;i++){
+		let {clicked, value} = diceArr[i];
+		if(clicked !== 1) continue;
+		if(!(value in diceToProcess)) diceToProcess[value] = 0;
+		diceToProcess[value] += 1;
+		diceArr[i].clicked = 2;
+	}
+	for(let val in diceToProcess){
+		
+	}
 }
