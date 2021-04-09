@@ -23,9 +23,7 @@ function rollDice(){
 function updateDiceImg(){
 	var diceImage;
 	for(var i = 0; i < 6; i++){
-		diceImage = "images/" + (i + 1 )+".png";
-		console.log(diceImage)
-		console.log(diceArr[i].id);
+		diceImage = "images/" +diceArr[i].value+".png";
 		document.getElementById(diceArr[i].id).setAttribute("src", diceImage);
 	}
 }
