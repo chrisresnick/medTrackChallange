@@ -41,6 +41,22 @@ function diceClick(img){
 }
 
 function bankScore(){
+	const scoreTable = {
+		1: 100,
+		2: 0,
+		3: 0,
+		4: 0,
+		5: 50,
+		6: 0,
+		"threeOfAKind":{
+			1: 1000,
+			2: 200,
+			3: 300,
+			4: 400,
+			5: 500,
+			6: 600
+		}
+	}
 	const diceToProcess = {};
 	for(let i=0;i<6;i++){
 		let {clicked, value} = diceArr[i];
@@ -50,6 +66,12 @@ function bankScore(){
 		diceArr[i].clicked = 2;
 	}
 	for(let val in diceToProcess){
-		
+		let count = diceToProcess[val]
+		while(count >= 3){
+			score += scoreTable.threeOfAKind[val]
+			count -= 3
+		}
+		score += count*scoreTable[val]
 	}
+	document.querySelector(".score").innerHTML = score;
 }
